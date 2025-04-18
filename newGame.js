@@ -1,7 +1,6 @@
 import { Ship, Gameboard, Player } from './script.js';
 import { userShips, computerShips } from './shipCreation.js';
 
-
 //creating the gameboards for the user
 export function userGameboard() {
     const user = new Player('Jack', false, 5);
@@ -12,12 +11,16 @@ export function userGameboard() {
     container.appendChild(userGrid);
     userShips(user);
     //filling the grid
-    user.gameboard.boardGrid.forEach((row) => {
-        row.forEach((cell) => {
+    user.gameboard.boardGrid.forEach((row, x) => {
+        row.forEach((cell, y) => {x
             const div = document.createElement("div");
             div.classList.add("cell");
             div.textContent = cell ? "Y" : "N"; 
             userGrid.appendChild(div);
+            //make it clickable
+            div.addEventListener("click", () => {
+                div.classList.add(cell ? "hit" : "miss");
+            });
         });
     });
 }
@@ -32,12 +35,16 @@ export function computerGameboard() {
     container.appendChild(computerGrid);
     computerShips(computer);
     //filling grid
-    computer.gameboard.boardGrid.forEach((row) => {
-        row.forEach((cell) => {
+    computer.gameboard.boardGrid.forEach((row, x) => {
+        row.forEach((cell, y) => {
             const div = document.createElement("div");
             div.classList.add("cell");
             div.textContent = cell ? "Y" : "N"; 
             computerGrid.appendChild(div);
+            //make it clickable
+            div.addEventListener("click", () => {
+                div.classList.add(cell ? "hit" : "miss");
+            });
         });
     });
 }

@@ -18,6 +18,20 @@
     align-items: center;
     justify-content: center;
     font-size: 18px;
+    cursor: pointer;
+    
+}
+
+.cell:hover {
+    background-color: grey;
+}
+
+.cell.hit {
+    background-color: green;
+}
+
+.cell.miss {
+    background-color: red;
 }
 
 #user-grid {
@@ -26,3 +40,4 @@
 #computer-grid {
 
 }
+

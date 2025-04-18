@@ -1,5 +1,4 @@
 import { Ship } from "./script.js";
-import { userGameboard, computerGameboard } from "./newGame.js";
 
 export function userShips(user) {
     const userShip1 = new Ship(3, 0, false);
