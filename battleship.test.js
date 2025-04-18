@@ -1,4 +1,4 @@
-const { Ship, Gameboard } = require('./script');
+const { Ship, Gameboard, Player } = require('./script');
 
 //testing hit and isSunk function inside ship
 test('isSunk function inside ship class', () => {
@@ -63,4 +63,13 @@ test('recieveAttack function works when ship is missed', () => {
     newBoard.placeShip(myShip, 1, 1, "horizontal");
     newBoard.receiveAttack(2,2);
     expect(myShip.hitCount).toBe(0);
+});
+
+test('Gameboard reports all ships sunk and game is over', () => {
+    const newBoard = new Gameboard(3);
+    const myShip = new Ship(2, 0, false);
+    newBoard.placeShip(myShip, 1, 1, "horizontal");
+    newBoard.receiveAttack(1,1);
+    newBoard.receiveAttack(1,2);
+    expect(newBoard.allShipsSunk()).toBe(true);
 });
