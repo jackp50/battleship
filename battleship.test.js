@@ -39,3 +39,28 @@ test('placeShip function places a ship in a coordinate- horizontal ship size 2',
                                         [null,null,null],
                                         ]);
 });
+
+test('recieveAttack function works when ship is hit', () => {
+    const newBoard = new Gameboard(3);
+    const myShip = new Ship(2, 0, false);
+    newBoard.placeShip(myShip, 1, 1, "horizontal");
+    newBoard.receiveAttack(1,1);
+    expect(myShip.hitCount).toBe(1);
+});
+
+test('recieveAttack function works when ship is sunk', () => {
+    const newBoard = new Gameboard(3);
+    const myShip = new Ship(2, 0, false);
+    newBoard.placeShip(myShip, 1, 1, "horizontal");
+    newBoard.receiveAttack(1,1);
+    newBoard.receiveAttack(1,2);
+    expect(myShip.sunk).toBe(true);
+});
+
+test('recieveAttack function works when ship is missed', () => {
+    const newBoard = new Gameboard(3);
+    const myShip = new Ship(2, 0, false);
+    newBoard.placeShip(myShip, 1, 1, "horizontal");
+    newBoard.receiveAttack(2,2);
+    expect(myShip.hitCount).toBe(0);
+});

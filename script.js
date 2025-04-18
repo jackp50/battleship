@@ -58,8 +58,18 @@ class Gameboard {
         }
     }
 
-    receiveAttack(coordinates){
-        
+    receiveAttack(x, y){
+        const attack = this.boardGrid[x][y];
+        if (attack) {
+            attack.hit();
+            if(attack.isSunk()) {
+                console.log("Ship Sunk");
+            } else {
+                console.log("Ship Hit");
+            }
+        } else {
+            console.log("Miss");
+        }
     }
 }
 
