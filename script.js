@@ -3,10 +3,11 @@
 //   };
 
 export class Ship {
-    constructor(length, hitCount, sunk) {
+    constructor(name, length, direction) {
+        this.name = name;
         this.length = length;
-        this.hitCount = hitCount;
-        this.sunk = sunk;
+        this.hitCount = 0;
+        this.direction = direction;
     }
 
     //counts number of hits on ship
@@ -16,17 +17,8 @@ export class Ship {
 
     //calculates whether a ship is considered sunk
     isSunk() {
-        if(this.length == this.hitCount) {
-            this.sunk = true;
-        }
-        else {
-            this.sunk = false;
-        }
-        return this.sunk;
+        return this.hitCount >= this.length;
     }
-
-
-
 }
 
 export class Gameboard {
@@ -42,52 +34,44 @@ export class Gameboard {
     }
 
     placeShip(ship, x, y, direction) {
-        //adding ship into the ships array
         this.ships.push(ship);
+    
         if (direction === "horizontal") {
-            
-            // Place ship across multiple horizontal cells
             for (let i = 0; i < ship.length; i++) {
                 this.boardGrid[x][y + i] = ship;
-                // coordinates.push([x, y + i]); 
             }
         } else if (direction === "vertical") {
-            // Place ship across multiple vertical cells
             for (let i = 0; i < ship.length; i++) {
                 this.boardGrid[x + i][y] = ship;
-                // coordinates.push([x + i, y]);
             }
-        } 
-        else {
-            throw new Error("Invalid direction! Use 'horizontal' or 'vertical'.");
         }
-    }
-
-    receiveAttack(x, y){
-        const attack = this.boardGrid[x][y];
-        if (attack) {
-            attack.hit();
-            if(attack.isSunk()) {
-                console.log("Ship Sunk");
-            } else {
-                console.log("Ship Hit");
-            }
-        } else {
-            this.missedAttacks++;
-            console.log("Miss");
-        }
-    }
-
-    //function to check if all ships are sunk and game is over
-    allShipsSunk() {
-        //console log because this test keeps failing
-        console.log("Checking if all ships are sunk...");
-        this.ships.forEach(ship => console.log(`Ship Length: ${ship.length}, Hit Count: ${ship.hitCount}, Sunk: ${ship.sunk}`));
-        return this.ships.every(ship => ship.isSunk());
     }
     
-}
+    
+    
+    receiveAttack(defender, x, y) {
+        const targetBoard = defender.gameboard;
+        const attackTarget = targetBoard.boardGrid[x][y];
+    
+        if (attackTarget && attackTarget instanceof Ship) {
+            attackTarget.hit();
+            console.log("Ship Hit!");
+    
+            if (attackTarget.isSunk()) {
+                console.log("Ship Sunk!");
+            }
+        } else { 
+            defender.gameboard.missedAttacks++;
+            console.log("Miss!");
+        } 
+    }
+    
+    //function to check if all ships are sunk and game is over
+    allShipsSunk() {
+        return this.ships.every(ship => ship.isSunk());
+    }
 
+}
 
  export class Player {
     constructor(user, computer, boardSize) {
@@ -96,16 +80,11 @@ export class Gameboard {
         this.gameboard = new Gameboard(boardSize);
     }
 
-    move(x,y) {
-        if (!this.computer) {
-            this.gameboard.receiveAttack(x,y);
-        }
-        else {
-            const randomX = Math.floor(Math.random() * this.gameboard.boardSize);
-            const randomY = Math.floor(Math.random() * this.gameboard.boardSize);
-            this.gameboard.receiveAttack(randomX, randomY);
-        }
+    move(opponent, x, y) {
+        opponent.gameboard.receiveAttack(opponent, x, y);
     }
+    
+    
 }
 
 // module.exports = { Ship, Gameboard, Player };

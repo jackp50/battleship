@@ -1,4 +1,4 @@
-const { Ship, Gameboard, Player } = require('./script');
+const { Ship, Gameboard} = require('./script');
 
 //testing hit and isSunk function inside ship
 test('isSunk function inside ship class', () => {

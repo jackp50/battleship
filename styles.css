@@ -1,20 +1,44 @@
-.container {
-    
+body {
+    background-color: black;
+}
+
+.user-ship {
+    background-color: lightskyblue;
+}
+
+h1{
+    color: green;
+}
+
+p{
+    color: green;
+}
+
+#intro{
+    /* border: 3px solid red; */
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    margin-top: 5%;
+    /* height: 100vh; */
+    /* border: 2px solid red; */
+    gap: 30px;
 }
 
 .gameboard {
     display: grid;
-    grid-template-columns: repeat(5, 50px);
-    grid-template-rows: repeat(5, 50px);
-    gap: 2px;
-    border: 3px solid black;
+    grid-template-columns: repeat(6, 50px);
+    grid-template-rows: repeat(6, 50px);
+    border: 1px solid green;
 }
 
 .cell {
     width: 50px;
     height: 50px;
-    border: 1px solid black;
-    display: flex;
+    border: 1px solid green;
     align-items: center;
     justify-content: center;
     font-size: 18px;
@@ -26,18 +50,71 @@
     background-color: grey;
 }
 
-.cell.hit {
-    background-color: green;
+.hit {
+    background-color: darkgreen;
 }
 
-.cell.miss {
+.miss{
     background-color: red;
 }
 
-#user-grid {
+.clicked {
+    pointer-events: none;
 }
 
-#computer-grid {
-
+.winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;;
+    background-color: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-items: center;
+    color: green;
+    font-size: 5rem;
+    flex-direction: column;
 }
 
+.winning-message button {
+    font-size: 3rem;
+    background-color: green;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+}
+
+.winning-message button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+.attack-console {
+    width: 300px;
+    height: 200px;
+    overflow-y: auto;
+    background-color: black;
+    color: green;
+    padding: 10px;
+    font-family: monospace;
+    border: 2px solid green;
+    display: flex;
+    flex-direction: column;
+}
+.attack-log-entry {
+    padding: 5px;
+    border-bottom: 1px solid lime;
+}
+
+#change-button {
+    background-color: green;
+    border: black;
+    border-radius: 8px;
+    cursor: pointer;
+}

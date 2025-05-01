@@ -7,7 +7,16 @@
     <link rel = "stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <div id = "intro">
+        <h1>Welcome To Battleship</h1>
+        <p>The user grid is on the left, while the enemy grid is on the right. Please click the "change ship placement" button until you are happy with the location of your ships.</p>
+        <p>User attacks first.</p>
+    </div>
+
+    <div class = "winning-message" id = "winning-message">
+        <div data-winning-message-text></div>
+        <button id = "restart-button">Restart</button>
+      </div>
 
     <script type="module" src="./startGame.js"></script>
 </body>
